@@ -1,0 +1,46 @@
+{
+    "name": "pierrestoffe/craft-language-redirector",
+    "description": "Automatically redirect visitors to their preferred language",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "language redirector"
+    ],
+    "support": {
+        "docs": "https://github.com/pierrestoffe/craft-language-redirector/blob/master/README.md",
+        "issues": "https://github.com/pierrestoffe/craft-language-redirector/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pierre Stoffe",
+            "homepage": "https://pierrestoffe.be"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1",
+        "jaybizzle/crawler-detect" :"^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+          "pierrestoffe\\languageredirector\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Language Redirector",
+        "handle": "language-redirector",
+        "schemaVersion": "1.0.0",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/pierrestoffe/craft-language-redirector/master/CHANGELOG.md",
+        "components": {
+            "languageRedirectorRedirectService": "pierrestoffe\\languageredirector\\services\\RedirectService",
+            "languageRedirectorLanguageService": "pierrestoffe\\languageredirector\\services\\LanguageService"
+        },
+        "class": "pierrestoffe\\languageredirector\\LanguageRedirector"
+    }
+}
