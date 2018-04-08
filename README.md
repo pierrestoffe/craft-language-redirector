@@ -1,16 +1,14 @@
 # Language Redirector plugin for Craft CMS 3.x
 
-Automatically redirect visitors to their preferred language
-
-![Screenshot](resources/img/plugin-logo.png)
+This plugin automatically redirects visitors to their preferred language
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0-beta.23 or later.
+This plugin requires Craft CMS 3.0.0 or later.
 
 ## Installation
 
-To install the plugin, follow these instructions.
+To install the plugin, either use the Plugin Store (in the Craft Control Panel) or follow these instructions.
 
 1. Open your terminal and go to your Craft project:
 
@@ -24,20 +22,43 @@ To install the plugin, follow these instructions.
 
 ## Language Redirector Overview
 
--Insert text here-
+If you've ever developed a multilingual website, you've probably thought about automatically redirecting your visitors to their preferred language. While it may have sounded simple at first, you obviously eventually realised it wasn't. Indeed, you have to take quite a few parameters into account:
+- The sites defined in Craft
+- The languages used in the sites
+- The option chosen in the language switcher
+- The language(s) accepted by your visitor's browser
+- The difference between language-based (`en`) and country-based (`en_us`) locales
+- Whether the page exists in the needed language
+
+Language Redirector mixes all these parameters and provides you with an easy-to-implement solution.
 
 ## Configuring Language Redirector
 
--Insert text here-
+1. Copy the config.php file provided at the root of the plugin directory to the `config` folder of your Craft install.
+2. Name it `language-redirector.php`.
+3. Assign sites to languages in the `languages` array, either using their handle or their ID. For example: `'en' => 'english'` or `'fr' => 5`. Don't forget that the configuration file is multi-environment friendy, just like any other Craft config file.
+
+If you feel like it, you can also rename the URL query parameter name and the session key. By default, they are both set to 'lang'.
 
 ## Using Language Redirector
 
--Insert text here-
+Adding a language switcher to your website becomes way easier with this plugin.
+As the `craft.languageSwitcher.getUrls()` function returns the URLs of the currently-visited element in all the languages defined in the config file, your language switcher could look like this:
 
-## Language Redirector Roadmap
+```
+{% set allLanguages = craft.languageSwitcher.getUrls() %}
 
-Some things to do, and ideas for potential features:
-
-* Release it
+<ul>
+    {% for item in allLanguages %}
+        <li>
+            <a href="{{ item.url }}" hreflang="{{ item.id }}" lang="{{ item.id }}" title="{{ 'Switch to {language}'|translate({
+                language: item.name
+            }) }}">
+                {{ item.nativeName|capitalize }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+```
 
 Brought to you by [Pierre Stoffe](https://pierrestoffe.be)

@@ -2,7 +2,7 @@
     "name": "pierrestoffe/craft-language-redirector",
     "description": "Automatically redirect visitors to their preferred language",
     "type": "craft-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": [
         "craft",
         "cms",
@@ -38,8 +38,7 @@
         "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/pierrestoffe/craft-language-redirector/master/CHANGELOG.md",
         "components": {
-            "languageRedirectorRedirectService": "pierrestoffe\\languageredirector\\services\\RedirectService",
-            "languageRedirectorLanguageService": "pierrestoffe\\languageredirector\\services\\LanguageService"
+            "languageRedirectorService": "pierrestoffe\\languageredirector\\services\\LanguageRedirectorService"
         },
         "class": "pierrestoffe\\languageredirector\\LanguageRedirector"
     }
