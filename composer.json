@@ -38,8 +38,7 @@
         "hasCpSection": false,
         "changelogUrl": "https://raw.githubusercontent.com/pierrestoffe/craft-language-redirector/master/CHANGELOG.md",
         "components": {
-            "languageRedirectorRedirectService": "pierrestoffe\\languageredirector\\services\\RedirectService",
-            "languageRedirectorLanguageService": "pierrestoffe\\languageredirector\\services\\LanguageService"
+            "languageRedirectorService": "pierrestoffe\\languageredirector\\services\\LanguageRedirectorService"
         },
         "class": "pierrestoffe\\languageredirector\\LanguageRedirector"
     }

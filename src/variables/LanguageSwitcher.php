@@ -11,7 +11,7 @@
 namespace pierrestoffe\languageredirector\variables;
 
 use pierrestoffe\languageredirector\LanguageRedirector;
-use pierrestoffe\languageredirector\services\RedirectService;
+use pierrestoffe\languageredirector\services\LanguageRedirectorService;
 
 use Craft;
 
@@ -29,26 +29,25 @@ class LanguageSwitcherVariable
      */
     public function getUrls(): array
     {
-        $urls = array();
-        
-        $currentElement = Craft::$app->urlManager->getMatchedElement();
-        $siteLanguages = LanguageRedirector::getInstance()->getSettings()->languages;
         $queryParameterName = LanguageRedirector::getInstance()->getSettings()->queryParameterName;
+        $siteLanguages = LanguageRedirector::getInstance()->getSettings()->languages;
         
-        if(!$currentElement || !$siteLanguages) {
+        if(!$siteLanguages) {
             return null;
         }
         
+        $languages = array();
+        
         foreach($siteLanguages as $language => $site) {
-            $redirectService = new RedirectService();
-            $targetUrl = $redirectService->getTargetUrl($language);
+            $languageService = new LanguageRedirectorService();
+            $targetUrl = $languageService->getTargetUrl($language);
             
-            $urls[$language]['id'] = $language;
-            $urls[$language]['name'] = \Locale::getDisplayName($language, Craft::$app->language);
-            $urls[$language]['nativeName'] = \Locale::getDisplayName($language, $language);
-            $urls[$language]['url'] = $targetUrl . '?' . $queryParameterName . '=' . $language;
+            $languages[$language]['id'] = $language;
+            $languages[$language]['name'] = \Locale::getDisplayName($language, Craft::$app->language);
+            $languages[$language]['nativeName'] = \Locale::getDisplayName($language, $language);
+            $languages[$language]['url'] = $targetUrl . '?' . $queryParameterName . '=' . $language;
         }
         
-        return $urls;
+        return $languages;
     }
 }
