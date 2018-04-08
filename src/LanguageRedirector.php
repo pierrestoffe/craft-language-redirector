@@ -10,7 +10,7 @@
 
 namespace pierrestoffe\languageredirector;
 
-use pierrestoffe\languageredirector\services\RedirectService;
+use pierrestoffe\languageredirector\services\LanguageRedirectorService;
 use pierrestoffe\languageredirector\models\Settings;
 use pierrestoffe\languageredirector\variables\LanguageSwitcherVariable;
 
@@ -25,7 +25,7 @@ use yii\base\Event;
  * @package   LanguageRedirector
  * @since     1.0.0
  *
- * @property RedirectService RedirectService
+ * @property LanguageRedirectorService LanguageRedirectorService
  */
 class LanguageRedirector extends Plugin
 {
@@ -56,8 +56,8 @@ class LanguageRedirector extends Plugin
             !$request->isAjax &&
             $this->getSettings()->enabled
         ) {
-            $service = new RedirectService();
-            $service->redirect();
+            $service = new LanguageRedirectorService();
+            $service->redirectVisitor();
         }
         
         Event::on(
