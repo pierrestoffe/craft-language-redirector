@@ -40,4 +40,25 @@ Language Redirector mixes all these parameters and provides you with an easy-to-
 
 If you feel like it, you can also rename the URL query parameter name and the session key. By default, they are both set to 'lang'.
 
+## Using Language Redirector
+
+Adding a language switcher to your website becomes way easier with this plugin.
+As the `craft.languageSwitcher.getUrls()` function returns the URLs of the currently-visited element in all the languages defined in the config file, your language switcher could look like this:
+
+```
+{% set allLanguages = craft.languageSwitcher.getUrls() %}
+
+<ul>
+    {% for item in allLanguages %}
+        <li>
+            <a href="{{ item.url }}" hreflang="{{ item.id }}" lang="{{ item.id }}" title="{{ 'Switch to {language}'|translate({
+                language: item.name
+            }) }}">
+                {{ item.nativeName|capitalize }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+```
+
 Brought to you by [Pierre Stoffe](https://pierrestoffe.be)
