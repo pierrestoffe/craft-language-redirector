@@ -117,6 +117,11 @@ class LanguageRedirectorService extends Component
         
         $targetElement = Craft::$app->elements->getElementById($currentElement->getId(), null, $targetSite->id);
         
+        // If element is not enabled for this site
+        if($targetElement->enabledForSite == false && $this->_getLanguageFromQueryParameter() === null) {
+            return null;
+        }
+        
         return $targetElement;
     }
     

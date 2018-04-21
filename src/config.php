@@ -23,9 +23,6 @@
   */
 
 return [
-    // Enable the automatic language redirection
-    'enabled' => true,
-    
     // A list of all languages and their matching site
     'languages' => [],
     

@@ -42,10 +42,12 @@ class LanguageSwitcherVariable
             $languageService = new LanguageRedirectorService();
             $targetUrl = $languageService->getTargetUrl($language);
             
-            $languages[$language]['id'] = $language;
-            $languages[$language]['name'] = \Locale::getDisplayName($language, Craft::$app->language);
-            $languages[$language]['nativeName'] = \Locale::getDisplayName($language, $language);
-            $languages[$language]['url'] = $targetUrl . '?' . $queryParameterName . '=' . $language;
+            if($targetUrl !== null) {
+                $languages[$language]['id'] = $language;
+                $languages[$language]['name'] = \Locale::getDisplayName($language, Craft::$app->language);
+                $languages[$language]['nativeName'] = \Locale::getDisplayName($language, $language);
+                $languages[$language]['url'] = $targetUrl . '?' . $queryParameterName . '=' . $language;
+            }
         }
         
         return $languages;
