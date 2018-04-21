@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [1.0.2] - 2018-04-22
 
-## Changed
+### Changed
 - Prevent redirect if the target Element doesn't exist
 - Hide elements for which no entry exist in the language switcher
 
