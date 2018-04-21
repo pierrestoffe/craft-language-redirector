@@ -2,7 +2,7 @@
     "name": "pierrestoffe/craft-language-redirector",
     "description": "Automatically redirect visitors to their preferred language",
     "type": "craft-plugin",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "keywords": [
         "craft",
         "cms",
