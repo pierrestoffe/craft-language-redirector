@@ -53,8 +53,7 @@ class LanguageRedirector extends Plugin
             !$request->isConsoleRequest &&
             !$request->isActionRequest &&
             !$request->isLivePreview &&
-            !$request->isAjax &&
-            $this->getSettings()->enabled
+            !$request->isAjax
         ) {
             $service = new LanguageRedirectorService();
             $service->redirectVisitor();
