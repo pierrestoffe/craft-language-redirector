@@ -23,13 +23,6 @@ class Settings extends Model
     // =========================================================================
 
     /**
-     * Enable the automatic language redirection
-     *
-     * @var bool
-     */
-    public $enabled = true;
-
-    /**
      * A list of all languages and their matching site
      *
      * @var array
@@ -59,9 +52,6 @@ class Settings extends Model
     public function rules()
     {
         return [
-            ['enabled', 'bool'],
-            ['enabled', 'default', 'value' => true],
-            
             ['languages', 'default', 'value' => []],
             ['languages', 'required'],
             
