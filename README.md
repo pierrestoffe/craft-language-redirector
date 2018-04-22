@@ -23,12 +23,11 @@ To install the plugin, either use the Plugin Store (in the Craft Control Panel) 
 ## Language Redirector Overview
 
 If you've ever developed a multilingual website, you've probably thought about automatically redirecting your visitors to their preferred language. While it may have sounded simple at first, you obviously eventually realised it wasn't. Indeed, you have to take quite a few parameters into account:
-- The sites defined in Craft
-- The languages used in the sites
-- The option chosen in the language switcher
+- The Sites defined in Craft
+- The languages used in your Sites
+- The language chosen in the language switcher
 - The language(s) accepted by your visitor's browser
-- The difference between language-based (`en`) and country-based (`en_us`) locales
-- Whether the page exists in the needed language
+- Whether the entry exists in the target language
 
 Language Redirector mixes all these parameters and provides you with an easy-to-implement solution.
 
