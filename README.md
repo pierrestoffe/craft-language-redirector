@@ -27,7 +27,7 @@ If you've ever developed a multilingual website, you've probably thought about a
 - The languages used in your Sites
 - The language chosen in the language switcher
 - The language(s) accepted by your visitor's browser
-- Whether the entry exists in the target language
+- Whether the Entry exists in the target language
 
 Language Redirector mixes all these parameters and provides you with an easy-to-implement solution.
 
