@@ -43,10 +43,11 @@ class LanguageSwitcherVariable
             $targetUrl = $languageService->getTargetUrl($language);
             
             if($targetUrl !== null) {
+                $separator = strpos($targetUrl,'?') !== false ? '&' : '?';
                 $languages[$language]['id'] = $language;
                 $languages[$language]['name'] = \Locale::getDisplayName($language, Craft::$app->language);
                 $languages[$language]['nativeName'] = \Locale::getDisplayName($language, $language);
-                $languages[$language]['url'] = $targetUrl . '?' . $queryParameterName . '=' . $language;
+                $languages[$language]['url'] = $targetUrl . $separator . $queryParameterName . '=' . $language;
             }
         }
         
