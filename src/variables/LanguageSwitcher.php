@@ -33,7 +33,7 @@ class LanguageSwitcherVariable
         $siteLanguages = LanguageRedirector::getInstance()->getSettings()->languages;
         
         if(!$siteLanguages) {
-            return null;
+            return array();
         }
         
         $languages = array();

@@ -9,8 +9,6 @@
  */
 
  /**
-  * Test config.php
-  *
   * This file exists only as a template for the Language Redirector settings.
   * It does nothing on its own.
   *
