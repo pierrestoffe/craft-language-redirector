@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.0.3] - 2018-06-08
+
+### Fixed
+- Fixed return value bug when craft.languageSwitcher.getUrls wouldn't return any language
+
 ## [1.0.2] - 2018-04-22
 
 ### Changed
