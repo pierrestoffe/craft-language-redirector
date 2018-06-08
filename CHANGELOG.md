@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.0.4] - 2018-06-08
+
+### Fixed
+- Fixed a bug that would occur when a redirected URL already contains URL parameters (thanks to @vieko)
+
 ## [1.0.3] - 2018-06-08
 
 ### Fixed
