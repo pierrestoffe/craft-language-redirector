@@ -1,10 +1,11 @@
 <?php
 /**
- * Language Redirector plugin for Craft CMS 3.x
+ * Language Redirector plugin for Craft CMS 3.x.
  *
  * Automatically redirect visitors to their preferred language
  *
- * @link      https://pierrestoffe.be
+ * @see      https://pierrestoffe.be
+ *
  * @copyright Copyright (c) 2018 Pierre Stoffe
  */
 
@@ -14,7 +15,7 @@ use craft\base\Model;
 
 /**
  * @author    Pierre Stoffe
- * @package   LanguageRedirector
+ *
  * @since     1.0.0
  */
 class Settings extends Model
@@ -23,21 +24,21 @@ class Settings extends Model
     // =========================================================================
 
     /**
-     * A list of all languages and their matching site
+     * A list of all languages and their matching site.
      *
      * @var array
      */
     public $languages = [];
 
     /**
-     * The name of the URL query parameter
+     * The name of the URL query parameter.
      *
      * @var string
      */
     public $queryParameterName = 'lang';
 
     /**
-     * The name of the HTTP session key
+     * The name of the HTTP session key.
      *
      * @var string
      */
@@ -47,19 +48,19 @@ class Settings extends Model
     // =========================================================================
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
             ['languages', 'default', 'value' => []],
             ['languages', 'required'],
-            
+
             ['queryParameterName', 'string'],
             ['queryParameterName', 'default', 'value' => 'lang'],
-            
+
             ['sessionKeyName', 'string'],
-            ['sessionKeyName', 'default', 'value' => 'lang']
+            ['sessionKeyName', 'default', 'value' => 'lang'],
         ];
     }
 }

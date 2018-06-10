@@ -1,28 +1,27 @@
 <?php
 /**
- * Language Redirector plugin for Craft CMS 3.x
+ * Language Redirector plugin for Craft CMS 3.x.
  *
  * Automatically redirect visitors to their preferred language
  *
- * @link      https://pierrestoffe.be
+ * @see      https://pierrestoffe.be
+ *
  * @copyright Copyright (c) 2018 Pierre Stoffe
  */
 
 namespace pierrestoffe\languageredirector;
 
-use pierrestoffe\languageredirector\services\LanguageRedirectorService;
-use pierrestoffe\languageredirector\models\Settings;
-use pierrestoffe\languageredirector\variables\LanguageSwitcherVariable;
-
 use Craft;
 use craft\base\Plugin;
 use craft\web\twig\variables\CraftVariable;
-
+use pierrestoffe\languageredirector\models\Settings;
+use pierrestoffe\languageredirector\services\LanguageRedirectorService;
+use pierrestoffe\languageredirector\variables\LanguageSwitcherVariable;
 use yii\base\Event;
 
 /**
  * @author    Pierre Stoffe
- * @package   LanguageRedirector
+ *
  * @since     1.0.0
  *
  * @property LanguageRedirectorService LanguageRedirectorService
@@ -41,14 +40,14 @@ class LanguageRedirector extends Plugin
     // =========================================================================
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {
         parent::init();
-        
+
         $request = Craft::$app->getRequest();
-        if(
+        if (
             $request->isSiteRequest &&
             !$request->isConsoleRequest &&
             !$request->isActionRequest &&
@@ -58,7 +57,7 @@ class LanguageRedirector extends Plugin
             $service = new LanguageRedirectorService();
             $service->redirectVisitor();
         }
-        
+
         Event::on(
             CraftVariable::class,
             CraftVariable::EVENT_INIT,
@@ -72,13 +71,12 @@ class LanguageRedirector extends Plugin
 
     // Protected Methods
     // =========================================================================
-    
+
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function createSettingsModel()
     {
         return new Settings();
     }
-
 }
