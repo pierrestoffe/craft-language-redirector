@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.0.5] - 2018-06-10
+
+### Fixed
+- Fixed a bug that would occur when mixing language-based and country-based locales in the configuration file
+
+### Changed
+- Now using PRS-2 and Symfony code syntax rules
+
 ## [1.0.4] - 2018-06-08
 
 ### Fixed
