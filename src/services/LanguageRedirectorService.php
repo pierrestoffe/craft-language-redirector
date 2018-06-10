@@ -244,9 +244,54 @@ class LanguageRedirectorService extends Component
     private function _getLanguageFromGuess()
     {
         $siteLanguages = array_keys(LanguageRedirector::getInstance()->getSettings()->languages);
-        $language = Craft::$app->getRequest()->getPreferredLanguage($siteLanguages);
+
+        // Get exact languages matches (required when working with country specific locales)
+        $languages = array_intersect(array_map('strtolower', Craft::$app->getRequest()->getAcceptableLanguages()), array_map('strtolower', $siteLanguages));
+
+        if (!empty($languages)) {
+            return array_values($languages)[0];
+        }
+
+        // Get the most appropriate match
+        $language = $this->_getPreferredLanguage($siteLanguages);
 
         return $language;
+    }
+
+    /**
+     * Compare the list of defined languages in the config file and the list of
+     * languages defined in the visitor's browser preferences. Get the most
+     * appropriate match between these two lists.
+     *
+     * This function is copied from Yii2's Request class, with the exception
+     * that it returns null if no match can be made.
+     *
+     * @param array $languages
+     *
+     * @return string|null
+     */
+    private function _getPreferredLanguage(array $languages = [])
+    {
+        if (empty($languages)) {
+            return null;
+        }
+
+        foreach (Craft::$app->getRequest()->getAcceptableLanguages() as $acceptableLanguage) {
+            $acceptableLanguage = str_replace('_', '-', strtolower($acceptableLanguage));
+            foreach ($languages as $language) {
+                $normalizedLanguage = str_replace('_', '-', strtolower($language));
+
+                if (
+                    $normalizedLanguage === $acceptableLanguage // en-us==en-us
+                    || 0 === strpos($acceptableLanguage, $normalizedLanguage.'-') // en==en-us
+                    || 0 === strpos($normalizedLanguage, $acceptableLanguage.'-') // en-us==en
+                ) {
+                    return $language;
+                }
+            }
+        }
+
+        return null;
     }
     
     /**
