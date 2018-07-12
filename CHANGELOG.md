@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.0.6] - 2018-07-12
+
+### Fixed
+- Called the exit() function after setting the location header
+
 ## [1.0.5] - 2018-06-10
 
 ### Fixed
