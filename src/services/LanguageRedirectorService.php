@@ -67,6 +67,7 @@ class LanguageRedirectorService extends Component
         }
 
         header("Location: {$redirectUrl}", true, 302);
+        exit();
     }
 
     /**
