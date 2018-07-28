@@ -46,18 +46,26 @@ class LanguageRedirector extends Plugin
     {
         parent::init();
 
-        $request = Craft::$app->getRequest();
-        if (
-            $request->isSiteRequest &&
-            !$request->isConsoleRequest &&
-            !$request->isActionRequest &&
-            !$request->isLivePreview &&
-            !$request->isAjax
-        ) {
-            $service = new LanguageRedirectorService();
-            $service->redirectVisitor();
-        }
+        // Check for the best language match
+        Event::on(
+            CraftVariable::class,
+            CraftVariable::EVENT_INIT,
+            function (Event $event) {
+                $request = Craft::$app->getRequest();
+                if (
+                    $request->isSiteRequest &&
+                    !$request->isConsoleRequest &&
+                    !$request->isActionRequest &&
+                    !$request->isLivePreview &&
+                    !$request->isAjax
+                ) {
+                    $service = new LanguageRedirectorService();
+                    $service->redirectVisitor();
+                }
+            }
+        );
 
+        // Register the variable
         Event::on(
             CraftVariable::class,
             CraftVariable::EVENT_INIT,

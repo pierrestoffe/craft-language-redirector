@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.0.7] - 2018-07-28
+
+### Changed
+- Initialize the language match only after the app is fully initialized
+
+### Fixed
+- Fixed a bug that would occur if the currently-visited entry wasn’t enable in all Sites
+
 ## [1.0.6] - 2018-07-12
 
 ### Fixed
