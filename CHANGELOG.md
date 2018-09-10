@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.0.8] - 2018-09-10
+
+### Changed
+- Used Craft's i18n service instead of the php-intl extension
+
 ## [1.0.7] - 2018-07-28
 
 ### Changed
