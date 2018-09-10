@@ -41,12 +41,13 @@ class LanguageSwitcherVariable
         foreach ($siteLanguages as $language => $site) {
             $languageService = new LanguageRedirectorService();
             $targetUrl = $languageService->getTargetUrl($language);
+            $locale = Craft::$app->i18n->getLocaleById($language);
 
             if (null !== $targetUrl) {
                 $separator = false !== strpos($targetUrl, '?') ? '&' : '?';
                 $languages[$language]['id'] = $language;
-                $languages[$language]['name'] = \Locale::getDisplayName($language, Craft::$app->language);
-                $languages[$language]['nativeName'] = \Locale::getDisplayName($language, $language);
+                $languages[$language]['name'] = $locale->getDisplayName(Craft::$app->language);
+                $languages[$language]['nativeName'] = $locale->getDisplayName($language);
                 $languages[$language]['url'] = $targetUrl.$separator.$queryParameterName.'='.$language;
             }
         }
