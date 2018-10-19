@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.1.0] - 2018-10-19
+
+### Added
+- Added setting to enable/disable the redirection for users with CP access
+
 ## [1.0.8] - 2018-09-10
 
 ### Changed

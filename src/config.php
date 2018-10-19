@@ -28,5 +28,8 @@ return [
     'queryParameterName' => 'lang',
     
     // The name of the HTTP session key
-    'sessionKeyName' => 'lang'
+    'sessionKeyName' => 'lang',
+    
+    // Should users with access to the Control Panel be redirected
+    'redirectUsersWithCpAccess' => true
 ];
