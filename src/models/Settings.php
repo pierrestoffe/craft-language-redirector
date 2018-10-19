@@ -44,6 +44,13 @@ class Settings extends Model
      */
     public $sessionKeyName = 'lang';
 
+    /**
+     * Should users with access to the Control Panel be redirected.
+     *
+     * @var bool
+     */
+    public $redirectUsersWithCpAccess = 'lang';
+
     // Public Methods
     // =========================================================================
 
@@ -61,6 +68,9 @@ class Settings extends Model
 
             ['sessionKeyName', 'string'],
             ['sessionKeyName', 'default', 'value' => 'lang'],
+            
+            ['redirectUsersWithCpAccess', 'bool'],
+            ['redirectUsersWithCpAccess', 'default', 'value' => true],
         ];
     }
 }
