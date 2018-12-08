@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.1.2] - 2018-12-09
+
+### Changed
+- Disable redirection for URLs that contain the ignore-lang parameter
+
 ## [1.1.1] - 2018-12-08
 
 ### Added
