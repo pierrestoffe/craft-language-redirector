@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.1.1] - 2018-12-08
+
+### Added
+- Added option to overrides URLs per language in the language switcher
+
 ## [1.1.0] - 2018-10-19
 
 ### Added
