@@ -74,6 +74,10 @@ class LanguageRedirector extends Plugin
                     $canRedirect = false;
                 }
                 
+                if($request->getQueryParam('ignore-lang') !== null) {
+                    $canRedirect = false;
+                } 
+                
                 if(Craft::$app->user->checkPermission('accessCp') && LanguageRedirector::getInstance()->getSettings()->redirectUsersWithCpAccess == false) {
                     $canRedirect = false;
                 }
