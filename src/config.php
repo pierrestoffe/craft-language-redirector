@@ -31,5 +31,9 @@ return [
     'sessionKeyName' => 'lang',
     
     // Should users with access to the Control Panel be redirected
-    'redirectUsersWithCpAccess' => true
+    'redirectUsersWithCpAccess' => true,
+
+    // Can users be automatically redirected or just use the plugin for language switching
+    'canRedirect' => true
+    
 ];
