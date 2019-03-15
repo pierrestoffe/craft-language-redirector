@@ -54,6 +54,10 @@ class LanguageRedirector extends Plugin
                 $request = Craft::$app->getRequest();
                 $canRedirect = false;
                 
+                if(LanguageRedirector::getInstance()->getSettings()->canRedirect == false) {
+                  return false;
+                }
+
                 if($request->isSiteRequest) {
                     $canRedirect = true;
                 }
