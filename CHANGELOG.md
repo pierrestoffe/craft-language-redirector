@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.1.3] - 2019-04-09
+
+### Added
+- Added setting to enable/disable the redirection all together, and only keep the language switching feature
+
 ## [1.1.2] - 2018-12-09
 
 ### Changed
