@@ -51,6 +51,13 @@ class Settings extends Model
      */
     public $redirectUsersWithCpAccess = 'lang';
 
+    /**
+     * Can users be automatically redirected or just use the plugin for language switching
+     *
+     * @var bool
+     */
+    public $canRedirect = true;
+
     // Public Methods
     // =========================================================================
 
@@ -71,6 +78,9 @@ class Settings extends Model
             
             ['redirectUsersWithCpAccess', 'bool'],
             ['redirectUsersWithCpAccess', 'default', 'value' => true],
+
+            ['canRedirect', 'bool'],
+            ['canRedirect', 'default', 'value' => true],
         ];
     }
 }
