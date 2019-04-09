@@ -53,10 +53,6 @@ class LanguageRedirector extends Plugin
             function (Event $event) {
                 $request = Craft::$app->getRequest();
                 $canRedirect = false;
-                
-                if(LanguageRedirector::getInstance()->getSettings()->canRedirect == false) {
-                  return false;
-                }
 
                 if($request->isSiteRequest) {
                     $canRedirect = true;
@@ -83,6 +79,10 @@ class LanguageRedirector extends Plugin
                 } 
                 
                 if(Craft::$app->user->checkPermission('accessCp') && LanguageRedirector::getInstance()->getSettings()->redirectUsersWithCpAccess == false) {
+                    $canRedirect = false;
+                }
+                
+                if(LanguageRedirector::getInstance()->getSettings()->canRedirect == false) {
                     $canRedirect = false;
                 }
                 
