@@ -32,7 +32,8 @@ class LanguageSwitcherVariable
     public function getUrls($urlOverrides = null): array
     {
         $queryParameterName = LanguageRedirector::getInstance()->getSettings()->queryParameterName;
-        $siteLanguages = LanguageRedirector::getInstance()->getSettings()->languages;
+        $languageRedirectorService = new LanguageRedirectorService();
+        $siteLanguages = $languageRedirectorService->getSitesPerLanguage();
 
         if (!$siteLanguages) {
             return array();
@@ -41,8 +42,7 @@ class LanguageSwitcherVariable
         $languages = array();
 
         foreach ($siteLanguages as $language => $site) {
-            $languageService = new LanguageRedirectorService();
-            $targetUrl = $urlOverrides[$language] ?? $languageService->getTargetUrl($language);
+            $targetUrl = $urlOverrides[$language] ?? $languageRedirectorService->getTargetUrl($language);
             $locale = Craft::$app->i18n->getLocaleById($language);
 
             if (null !== $targetUrl) {

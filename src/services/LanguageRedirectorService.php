@@ -195,17 +195,18 @@ class LanguageRedirectorService extends Component
             return null;
         }
 
-        $languages = $this->getLanguages(); 
-        $siteForLanguage = $languages[$language] ?? 0;
+        $sitesPerLanguage = $this->getSitesPerLanguage();
+        
+        $siteFromLanguage = $sitesPerLanguage[$language] ?? 0;
 
-        if (is_int($siteForLanguage)) {
-            $site = Craft::$app->sites->getSiteById($siteForLanguage);
+        if (is_int($siteFromLanguage)) {
+            $site = Craft::$app->sites->getSiteById($siteFromLanguage);
 
             if (null != $site) {
                 return $site;
             }
         } else {
-            $site = Craft::$app->sites->getSiteByHandle($siteForLanguage);
+            $site = Craft::$app->sites->getSiteByHandle($siteFromLanguage);
 
             if (null != $site) {
                 return $site;
@@ -213,6 +214,26 @@ class LanguageRedirectorService extends Component
         }
 
         return null;
+    }
+
+    /**
+     * Get the list of all languages defined in the settings or in the Sites table, and their corresponding Site.
+     *
+     * @return array
+     */
+    public function getSitesPerLanguage()
+    {
+        $languages = LanguageRedirector::getInstance()->getSettings()->languages;
+        if (!empty($languages)) {
+            return $languages;
+        }
+
+        $languages = [];
+        foreach (Craft::$app->sites->getAllSites() as $site) {
+            $languages[$site->language] = (int) $site->id;
+        }
+
+        return $languages;
     }
 
     // Private Methods
@@ -252,7 +273,7 @@ class LanguageRedirectorService extends Component
      */
     private function _getLanguageFromGuess()
     {
-        $siteLanguages = array_keys($this->getLanguages());
+        $siteLanguages = array_keys($this->getSitesPerLanguage());
 
         // Get exact languages matches (required when working with country specific locales)
         $languages = array_intersect(array_map('strtolower', Craft::$app->getRequest()->getAcceptableLanguages()), array_map('strtolower', $siteLanguages));
@@ -343,26 +364,5 @@ class LanguageRedirectorService extends Component
     private function _getQueryParameters()
     {
         return $this->_queryParameters;
-    }
-
-    /**
-     * Gets the defined site languages from settings or from the sites table.
-     *
-     * @return array
-     */
-    protected function getLanguages()
-    {
-        $languages = LanguageRedirector::getInstance()->getSettings()->languages;
-        if (!empty($languages)) {
-            return $languages;
-        }
-
-        $languages = [];
-        foreach (Craft::$app->sites->getAllSites() as $site)
-        {
-            $languages[$site->language] = (int)$site->id;
-        }
-
-        return $languages;
     }
 }
