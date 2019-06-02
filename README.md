@@ -33,6 +33,8 @@ Language Redirector mixes all these parameters and provides you with an easy-to-
 
 ## Configuring Language Redirector
 
+By default, Language Redirector will use all of your defined sites as the site/language combinations to redirect visitors.  If you wish to override the defaults (to say rename or remove a site), you can:
+
 1. Copy the config.php file provided at the root of the plugin directory to the `config` folder of your Craft install.
 2. Name it `language-redirector.php`.
 3. Assign sites to languages in the `languages` array, either using their handle or their ID. For example: `'en' => 'english'` or `'fr' => 5`. Don't forget that the configuration file is multi-environment friendy, just like any other Craft config file.
