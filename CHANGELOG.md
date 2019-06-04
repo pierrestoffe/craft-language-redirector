@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
-## [1.2] - 2019-06-02
+## [1.2.0] - 2019-06-02
 
 ### Added
 - Added method that defaults to fetching the Sites and languages defined in the Sites table, should the list of Sites be undefined in the plugin's settings (thanks to @jcherniak)
