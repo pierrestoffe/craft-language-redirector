@@ -70,11 +70,11 @@ class LanguageRedirector extends Plugin
                     $canRedirect = false;
                 }
                 
-                if($request->isAjax) {
+                if(!$request->isConsoleRequest && $request->isAjax) {
                     $canRedirect = false;
                 }
                 
-                if($request->getQueryParam('ignore-lang') !== null) {
+                if(!$request->isConsoleRequest && $request->getQueryParam('ignore-lang') !== null) {
                     $canRedirect = false;
                 } 
                 
