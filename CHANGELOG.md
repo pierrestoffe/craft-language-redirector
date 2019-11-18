@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.3.0] - 2019-11-18
+
+### Added
+- Added support for multi-group Sites (multiple Sites inside multiple Site groups)
+
+### Changed
+- Crawlers are now subject to a redirection that only removes the lang URL query parameter
+
 ## [1.2.1] - 2019-09-26
 
 ### Fixed
