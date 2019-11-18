@@ -54,35 +54,35 @@ class LanguageRedirector extends Plugin
                 $request = Craft::$app->getRequest();
                 $canRedirect = false;
 
-                if($request->isSiteRequest) {
+                if ($request->isSiteRequest) {
                     $canRedirect = true;
                 }
                 
-                if($request->isConsoleRequest) {
+                if ($request->isConsoleRequest) {
                     $canRedirect = false;
                 }
                 
-                if($request->isActionRequest) {
+                if ($request->isActionRequest) {
                     $canRedirect = false;
                 }
                 
-                if($request->isLivePreview) {
+                if ($request->isLivePreview) {
                     $canRedirect = false;
                 }
                 
-                if(!$request->isConsoleRequest && $request->isAjax) {
+                if (!$request->isConsoleRequest && $request->isAjax) {
                     $canRedirect = false;
                 }
                 
-                if(!$request->isConsoleRequest && $request->getQueryParam('ignore-lang') !== null) {
+                if (!$request->isConsoleRequest && $request->getQueryParam('ignore-lang') !== null) {
                     $canRedirect = false;
                 } 
                 
-                if(Craft::$app->user->checkPermission('accessCp') && LanguageRedirector::getInstance()->getSettings()->redirectUsersWithCpAccess == false) {
+                if (Craft::$app->user->checkPermission('accessCp') && LanguageRedirector::getInstance()->getSettings()->redirectUsersWithCpAccess == false) {
                     $canRedirect = false;
                 }
                 
-                if(LanguageRedirector::getInstance()->getSettings()->canRedirect == false) {
+                if (LanguageRedirector::getInstance()->getSettings()->canRedirect == false) {
                     $canRedirect = false;
                 }
                 
