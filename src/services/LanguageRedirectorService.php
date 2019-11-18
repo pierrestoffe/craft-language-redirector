@@ -57,6 +57,8 @@ class LanguageRedirectorService extends Component
 
         // If a crawler is detected, stop here
         if ($CrawlerDetect->isCrawler()) {
+            $this->redirectCrawler();
+            
             return false;
         }
 
@@ -66,6 +68,40 @@ class LanguageRedirectorService extends Component
             return false;
         }
 
+        header("Location: {$redirectUrl}", true, 302);
+        exit();
+    }
+    
+    /**
+     * Redirect crawlers to the same page, without the lang URL query parameter
+     *
+     * @return bool
+     */
+    public function redirectCrawler() {
+        $queryParameter = $this->_getLanguageFromQueryParameter();
+        
+        if (empty($queryParameter)) {
+            return false;
+        }
+        
+        // Get current page URL
+        $currentElement = Craft::$app->urlManager->getMatchedElement();
+        $redirectUrl = $currentElement->url ?? null;
+        
+        if (null === $redirectUrl) {
+            return false;
+        }
+        
+        // Remove unnecessary URL query parameters from $_GET
+        unset($_GET['p']);
+        unset($_GET['lang']);
+        $queryString = http_build_query($_GET);
+        
+        // Create URL
+        if (!empty($queryString)) {
+            $redirectUrl .= '?' . $queryString;
+        }
+        
         header("Location: {$redirectUrl}", true, 302);
         exit();
     }
