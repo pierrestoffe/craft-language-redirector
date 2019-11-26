@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.3.1] - 2019-11-26
+
+### Fixed
+- Replaced request.app.isLivePreview with request.app.livePreview, which was deprecated in Craft CMS since v3.2.1
+
 ## [1.3.0] - 2019-11-18
 
 ### Added

@@ -66,7 +66,7 @@ class LanguageRedirector extends Plugin
                     $canRedirect = false;
                 }
                 
-                if ($request->isLivePreview) {
+                if ($request->isPreview) {
                     $canRedirect = false;
                 }
                 
