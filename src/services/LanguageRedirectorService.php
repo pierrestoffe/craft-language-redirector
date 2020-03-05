@@ -38,14 +38,6 @@ class LanguageRedirectorService extends Component
     // =========================================================================
 
     /**
-     * Constructor function.
-     */
-    public function __construct()
-    {
-        $this->_setQueryParameters();
-    }
-
-    /**
      * Check if a redirection makes sense in the current context
      *
      * @return bool
@@ -110,7 +102,8 @@ class LanguageRedirectorService extends Component
             
             return false;
         }
-
+        
+        $this->_setQueryParameters();
         $redirectUrl = $this->getTargetUrl();
 
         if (null === $redirectUrl) {
@@ -445,7 +438,7 @@ class LanguageRedirectorService extends Component
      */
     private function _setQueryParameters()
     {
-        parse_str(html_entity_decode(Craft::$app->request->getQueryStringWithoutPath()), $queryParameters);
+        parse_str(html_entity_decode(Craft::$app->getRequest()->getQueryStringWithoutPath()), $queryParameters);
 
         $this->_queryParameters = $queryParameters;
     }

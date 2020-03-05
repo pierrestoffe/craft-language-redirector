@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.3.3] - 2020-03-05
+
+### Changed
+- Removed `__construct` method and moved the methods that were inside `__construct` after `canRedirectVisitor` method is called
+
 ## [1.3.2] - 2020-03-05
 
 ### Changed
