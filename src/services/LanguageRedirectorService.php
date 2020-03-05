@@ -46,6 +46,55 @@ class LanguageRedirectorService extends Component
     }
 
     /**
+     * Check if a redirection makes sense in the current context
+     *
+     * @return bool
+     */
+    public function canRedirectVisitor()
+    {
+        $request = Craft::$app->getRequest();
+        $canRedirect = false;
+
+        if ($request->isSiteRequest) {
+            $canRedirect = true;
+        }
+
+        if ($request->isConsoleRequest) {
+            $canRedirect = false;
+        }
+
+        if ($request->isActionRequest) {
+            $canRedirect = false;
+        }
+
+        if ($request->isPreview) {
+            $canRedirect = false;
+        }
+
+        if (!$request->isConsoleRequest && $request->isAjax) {
+            $canRedirect = false;
+        }
+
+        if (!$request->isConsoleRequest && $request->getQueryParam('ignore-lang') !== null) {
+            $canRedirect = false;
+        }
+
+        if (Craft::$app->user->checkPermission('accessCp') && LanguageRedirector::getInstance()->getSettings()->redirectUsersWithCpAccess == false) {
+            $canRedirect = false;
+        }
+
+        if (LanguageRedirector::getInstance()->getSettings()->canRedirect == false) {
+            $canRedirect = false;
+        }
+
+        if (!$canRedirect) {
+            return false;
+        }
+
+        $this->redirectVisitor();
+    }
+
+    /**
      * Redirect to a localized URL if needed, unless the page is being visited
      * by a crawler.
      *

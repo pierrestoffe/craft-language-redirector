@@ -51,45 +51,8 @@ class LanguageRedirector extends Plugin
             CraftVariable::class,
             CraftVariable::EVENT_INIT,
             function (Event $event) {
-                $request = Craft::$app->getRequest();
-                $canRedirect = false;
-
-                if ($request->isSiteRequest) {
-                    $canRedirect = true;
-                }
-                
-                if ($request->isConsoleRequest) {
-                    $canRedirect = false;
-                }
-                
-                if ($request->isActionRequest) {
-                    $canRedirect = false;
-                }
-                
-                if ($request->isPreview) {
-                    $canRedirect = false;
-                }
-                
-                if (!$request->isConsoleRequest && $request->isAjax) {
-                    $canRedirect = false;
-                }
-                
-                if (!$request->isConsoleRequest && $request->getQueryParam('ignore-lang') !== null) {
-                    $canRedirect = false;
-                } 
-                
-                if (Craft::$app->user->checkPermission('accessCp') && LanguageRedirector::getInstance()->getSettings()->redirectUsersWithCpAccess == false) {
-                    $canRedirect = false;
-                }
-                
-                if (LanguageRedirector::getInstance()->getSettings()->canRedirect == false) {
-                    $canRedirect = false;
-                }
-                
-                if ($canRedirect) {
-                    $service = new LanguageRedirectorService();
-                    $service->redirectVisitor();
-                }
+                $service = new LanguageRedirectorService();
+                $service->canRedirectVisitor();
             }
         );
 
