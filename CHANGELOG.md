@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.3.2] - 2020-03-05
+
+### Changed
+- Moved the initial check to a public function within the main service
+
 ## [1.3.1] - 2019-11-26
 
 ### Fixed
