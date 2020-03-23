@@ -29,7 +29,7 @@ class LanguageSwitcherVariable
      *
      * @return array
      */
-    public function getUrls($urlOverrides = null): array
+    public function getUrls($urlOverrides = null)
     {
         $queryParameterName = LanguageRedirector::getInstance()->getSettings()->queryParameterName;
         $languageRedirectorService = new LanguageRedirectorService();

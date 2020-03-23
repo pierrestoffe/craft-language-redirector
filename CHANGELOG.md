@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.3.4] - 2020-03-23
+
+### Changed
+- Complied with psr-4 and eliminate composer deprecation warning
+
 ## [1.3.3] - 2020-03-05
 
 ### Changed
