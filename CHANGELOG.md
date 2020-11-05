@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.4] - 2020-11-05
+
+### Added
+- Added `group` parameter to getUrls method so that the list of URLs in a specific language group can be retrieved
+
 ## [1.3.4] - 2020-03-23
 
 ### Changed
