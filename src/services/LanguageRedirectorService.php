@@ -99,10 +99,10 @@ class LanguageRedirectorService extends Component
         // If a crawler is detected, stop here
         if ($CrawlerDetect->isCrawler()) {
             $this->redirectCrawler();
-            
+
             return false;
         }
-        
+
         $this->_setQueryParameters();
         $redirectUrl = $this->getTargetUrl();
 
@@ -113,7 +113,7 @@ class LanguageRedirectorService extends Component
         header("Location: {$redirectUrl}", true, 302);
         exit();
     }
-    
+
     /**
      * Redirect crawlers to the same page, without the lang URL query parameter
      *
@@ -121,29 +121,29 @@ class LanguageRedirectorService extends Component
      */
     public function redirectCrawler() {
         $queryParameter = $this->_getLanguageFromQueryParameter();
-        
+
         if (empty($queryParameter)) {
             return false;
         }
-        
+
         // Get current page URL
         $currentElement = Craft::$app->urlManager->getMatchedElement();
         $redirectUrl = $currentElement->url ?? null;
-        
+
         if (null === $redirectUrl) {
             return false;
         }
-        
+
         // Remove unnecessary URL query parameters from $_GET
         unset($_GET['p']);
         unset($_GET['lang']);
         $queryString = http_build_query($_GET);
-        
+
         // Create URL
         if (!empty($queryString)) {
             $redirectUrl .= '?' . $queryString;
         }
-        
+
         header("Location: {$redirectUrl}", true, 302);
         exit();
     }
@@ -152,12 +152,13 @@ class LanguageRedirectorService extends Component
      * Get the localized url.
      *
      * @param string|null $language
+     * @param string|null $group
      *
      * @return string
      */
-    public function getTargetUrl(string $language = null)
+    public function getTargetUrl(string $language = null, string $group = null)
     {
-        $targetElement = $this->getTargetElement($language);
+        $targetElement = $this->getTargetElement($language, $group);
 
         if (null === $targetElement) {
             return null;
@@ -178,12 +179,13 @@ class LanguageRedirectorService extends Component
      * Get the localized Element.
      *
      * @param string|null $language
+     * @param string|null $group
      *
      * @return ElementInterface
      */
-    public function getTargetElement(string $language = null)
+    public function getTargetElement(string $language = null, string $group = null)
     {
-        $targetSite = $this->getTargetSite($language);
+        $targetSite = $this->getTargetSite($language, $group);
 
         $currentElement = Craft::$app->urlManager->getMatchedElement();
 
@@ -213,15 +215,16 @@ class LanguageRedirectorService extends Component
      * Process all parameters and return the target Site.
      *
      * @param string|null $language
+     * @param string|null $group
      *
      * @return string
      */
-    public function getTargetSite(string $language = null)
+    public function getTargetSite(string $language = null, string $group = null)
     {
         $targetSite = null;
 
         if (null !== $language) {
-            $targetSite = $this->getSiteFromLanguage($language);
+            $targetSite = $this->getSiteFromLanguage($language, $group);
 
             return $targetSite;
         }
@@ -229,19 +232,19 @@ class LanguageRedirectorService extends Component
         // Use the query parameter
         if (null === $targetSite) {
             $language = $this->_getLanguageFromQueryParameter();
-            $targetSite = $this->getSiteFromLanguage($language);
+            $targetSite = $this->getSiteFromLanguage($language, $group);
         }
 
         // Use the language session key
         if (null === $targetSite) {
             $language = $this->_getLanguageFromSession();
-            $targetSite = $this->getSiteFromLanguage($language);
+            $targetSite = $this->getSiteFromLanguage($language, $group);
         }
 
         // Guess the language
         if (null === $targetSite) {
             $language = $this->_getLanguageFromGuess();
-            $targetSite = $this->getSiteFromLanguage($language);
+            $targetSite = $this->getSiteFromLanguage($language, $group);
         }
 
         if (null === $targetSite) {
@@ -265,16 +268,17 @@ class LanguageRedirectorService extends Component
      * Get the Site that matches the target language.
      *
      * @param string|null $language
+     * @param string|null $group
      *
      * @return Site
      */
-    public function getSiteFromLanguage(string $language = null)
+    public function getSiteFromLanguage(string $language = null, string $group = null)
     {
         if (null === $language) {
             return null;
         }
 
-        $sitesPerLanguage = $this->getSitesPerLanguage();
+        $sitesPerLanguage = $this->getSitesPerLanguage($group);
         $siteFromLanguage = $sitesPerLanguage[$language] ?? 0;
 
         if (is_int($siteFromLanguage)) {
@@ -301,14 +305,14 @@ class LanguageRedirectorService extends Component
      *
      * @return array
      */
-    public function getSitesPerLanguage()
+    public function getSitesPerLanguage(string $group = null)
     {
         $languages = LanguageRedirector::getInstance()->getSettings()->languages;
-        
+
         if (is_array(reset($languages))) {
-            $languages = $this->_getSitesPerLanguageInGroup();
+            $languages = $this->_getSitesPerLanguageInGroup($group);
         }
-        
+
         if (!empty($languages)) {
             return $languages;
         }
@@ -452,21 +456,28 @@ class LanguageRedirectorService extends Component
     {
         return $this->_queryParameters;
     }
-    
+
     /**
      * Get the list of all languages defined in the settings, in the current group
      *
+     * @param string|null $group
+     *
      * @return array
      */
-    public function _getSitesPerLanguageInGroup()
+    public function _getSitesPerLanguageInGroup(string $group = null)
     {
         $languages = LanguageRedirector::getInstance()->getSettings()->languages;
-        $siteGroup = $this->_getSiteGroup();
-        $languagesInGroup = $languages[$siteGroup];
-        
+
+        $siteGroup = $group;
+        if (empty($siteGroup)) {
+            $siteGroup = $this->_getSiteGroup();
+        }
+
+        $languagesInGroup = $languages[$siteGroup] ?? null;
+
         return $languagesInGroup;
     }
-    
+
     /**
      * Get the array key of the current language group, as defined in the settings
      *
@@ -476,19 +487,19 @@ class LanguageRedirectorService extends Component
     {
         $currentSite = Craft::$app->sites->getCurrentSite();
         $currentSiteHandle = $currentSite->handle;
-        
+
         $languages = LanguageRedirector::getInstance()->getSettings()->languages;
-        
+
         $siteGroup = null;
         foreach($languages as $key => $group){
             if(is_array($group) && in_array($currentSiteHandle, $group)) {
                 $siteGroup = $key;
             }
         }
-        
+
         return $siteGroup;
     }
-    
+
     /**
      * Generate an ID for the current language group
      *
@@ -498,7 +509,7 @@ class LanguageRedirectorService extends Component
     {
         $group = $this->_getSiteGroup();
         $groupId = md5($group);
-        
+
         return $groupId;
     }
 }
