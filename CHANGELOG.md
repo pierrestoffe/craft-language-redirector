@@ -11,12 +11,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 - Fixed release numbering format
 
-## [1.5] - 2020-11-06
+## [1.5.0] - 2020-11-06
 
 ### Added
 - Added `defaultEntryId` setting to default to a specific Entry when the current Entry is disabled in other Sites
 
-## [1.4] - 2020-11-05
+## [1.4.0] - 2020-11-05
 
 ### Added
 - Added `group` parameter to getUrls method so that the list of URLs in a specific language group can be retrieved
