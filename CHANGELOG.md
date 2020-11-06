@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.5] - 2020-11-06
+
+### Added
+- Added `defaultEntryId` setting to default to a specific Entry when the current Entry is disabled in other Sites
+
 ## [1.4] - 2020-11-05
 
 ### Added
