@@ -14,6 +14,7 @@ namespace pierrestoffe\languageredirector\services;
 use Craft;
 use craft\base\Component;
 use craft\base\ElementInterface;
+use craft\elements\Entry;
 use craft\helpers\UrlHelper;
 use craft\models\Site;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
@@ -186,6 +187,7 @@ class LanguageRedirectorService extends Component
     public function getTargetElement(string $language = null, string $group = null)
     {
         $targetSite = $this->getTargetSite($language, $group);
+        $defaultEntryId = LanguageRedirector::getInstance()->getSettings()->defaultEntryId;
 
         $currentElement = Craft::$app->urlManager->getMatchedElement();
 
@@ -198,6 +200,11 @@ class LanguageRedirectorService extends Component
         }
 
         $targetElement = Craft::$app->elements->getElementById($currentElement->getId(), null, $targetSite->id);
+
+        if (null === $targetElement && null !== $defaultEntryId) {
+            $defaultElement = Craft::$app->elements->getElementById($defaultEntryId, null, $targetSite->id);
+            $targetElement = $defaultElement;
+        }
 
         if (null === $targetElement) {
             return null;

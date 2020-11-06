@@ -58,6 +58,12 @@ class Settings extends Model
      */
     public $canRedirect = true;
 
+    /** The ID of the Entry that the getUrls method can default to when the current Entry is disabled in other Sites
+     *
+     * @var bool
+     */
+    public $defaultEntryId = null;
+
     // Public Methods
     // =========================================================================
 
@@ -75,12 +81,15 @@ class Settings extends Model
 
             ['sessionKeyName', 'string'],
             ['sessionKeyName', 'default', 'value' => 'lang'],
-            
+
             ['redirectUsersWithCpAccess', 'bool'],
             ['redirectUsersWithCpAccess', 'default', 'value' => true],
 
             ['canRedirect', 'bool'],
             ['canRedirect', 'default', 'value' => true],
+            
+            ['defaultEntryId', 'int'],
+            ['defaultEntryId', 'default', 'value' => null],
         ];
     }
 }

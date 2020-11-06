@@ -34,6 +34,9 @@ return [
     'redirectUsersWithCpAccess' => true,
 
     // Can users be automatically redirected or just use the plugin for language switching
-    'canRedirect' => true
+    'canRedirect' => true,
+    
+    // The ID of the Entry that the getUrls method can default to when the current Entry is disabled in other Sites
+    'defaultEntryId' => null,
     
 ];
