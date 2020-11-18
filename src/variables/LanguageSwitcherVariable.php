@@ -26,6 +26,7 @@ class LanguageSwitcherVariable
      * Get the URLs of all languages.
      *
      * @param array|null $urlOverrides
+     * @param string $group
      *
      * @return array
      */

@@ -199,20 +199,16 @@ class LanguageRedirectorService extends Component
             return null;
         }
 
+        $targetElementFound = true;
         $targetElement = Craft::$app->elements->getElementById($currentElement->getId(), null, $targetSite->id);
 
-        if (null === $targetElement && null !== $defaultEntryId) {
-            $defaultElement = Craft::$app->elements->getElementById($defaultEntryId, null, $targetSite->id);
-            $targetElement = $defaultElement;
-        }
-
-        if (null === $targetElement) {
-            return null;
-        }
-
         // If element is not enabled for this site
-        if (false == $targetElement->enabledForSite && null === $this->_getLanguageFromQueryParameter()) {
-            return null;
+        if (null === $targetElement || (false == $targetElement->enabledForSite && null === $this->_getLanguageFromQueryParameter())) {
+            $targetElementFound = false;
+        }
+
+        if (false === $targetElementFound && null !== $defaultEntryId) {
+            $targetElement = Craft::$app->elements->getElementById($defaultEntryId, null, $targetSite->id);
         }
 
         return $targetElement;
