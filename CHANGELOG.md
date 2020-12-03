@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.5.3] - 2020-12-03
+
+### Fixed
+- Fixed issue where visitors where automatically redirected to the defaultEntryId when it is defined. The defaultEntryId should instead only be used when calling the language switcher variable.
+
 ## [1.5.2] - 2020-11-18
 
 ### Fixed
