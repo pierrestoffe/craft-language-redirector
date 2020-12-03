@@ -154,12 +154,13 @@ class LanguageRedirectorService extends Component
      *
      * @param string|null $language
      * @param string|null $group
+     * @param bool $withDefault
      *
      * @return string
      */
-    public function getTargetUrl(string $language = null, string $group = null)
+    public function getTargetUrl(string $language = null, string $group = null, bool $withDefault = false)
     {
-        $targetElement = $this->getTargetElement($language, $group);
+        $targetElement = $this->getTargetElement($language, $group, $withDefault);
 
         if (null === $targetElement) {
             return null;
@@ -181,13 +182,13 @@ class LanguageRedirectorService extends Component
      *
      * @param string|null $language
      * @param string|null $group
+     * @param bool $withDefault
      *
      * @return ElementInterface
      */
-    public function getTargetElement(string $language = null, string $group = null)
+    public function getTargetElement(string $language = null, string $group = null, bool $withDefault = false)
     {
         $targetSite = $this->getTargetSite($language, $group);
-        $defaultEntryId = LanguageRedirector::getInstance()->getSettings()->defaultEntryId;
 
         $currentElement = Craft::$app->urlManager->getMatchedElement();
 
@@ -203,12 +204,25 @@ class LanguageRedirectorService extends Component
         $targetElement = Craft::$app->elements->getElementById($currentElement->getId(), null, $targetSite->id);
 
         // If element is not enabled for this site
-        if (null === $targetElement || (false == $targetElement->enabledForSite && null === $this->_getLanguageFromQueryParameter())) {
+        if (null === $targetElement || (false === $targetElement->enabledForSite && null === $this->_getLanguageFromQueryParameter())) {
             $targetElementFound = false;
         }
 
-        if (false === $targetElementFound && null !== $defaultEntryId) {
-            $targetElement = Craft::$app->elements->getElementById($defaultEntryId, null, $targetSite->id);
+        if ($withDefault) {
+            $defaultEntryId = LanguageRedirector::getInstance()->getSettings()->defaultEntryId;
+            
+            if (false === $targetElementFound && null !== $defaultEntryId) {
+                $targetElement = Craft::$app->elements->getElementById($defaultEntryId, null, $targetSite->id);
+                
+                $targetElementFound = true;
+                if (null === $targetElement || (false === $targetElement->enabledForSite && null === $this->_getLanguageFromQueryParameter())) {
+                    $targetElementFound = false;
+                }
+            }
+        }
+        
+        if (false === $targetElementFound) {
+            return null;
         }
 
         return $targetElement;

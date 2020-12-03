@@ -43,7 +43,7 @@ class LanguageSwitcherVariable
         $languages = array();
 
         foreach ($siteLanguages as $language => $site) {
-            $targetUrl = $urlOverrides[$language] ?? $languageRedirectorService->getTargetUrl($language, $group);
+            $targetUrl = $urlOverrides[$language] ?? $languageRedirectorService->getTargetUrl($language, $group, true);
             $locale = Craft::$app->i18n->getLocaleById($language);
 
             if (null !== $targetUrl) {
