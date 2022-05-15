@@ -12,6 +12,7 @@
 namespace pierrestoffe\languageredirector;
 
 use Craft;
+use craft\base\Model;
 use craft\base\Plugin;
 use craft\web\twig\variables\CraftVariable;
 use pierrestoffe\languageredirector\models\Settings;
@@ -74,7 +75,7 @@ class LanguageRedirector extends Plugin
     /**
      * {@inheritdoc}
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?Model
     {
         return new Settings();
     }
