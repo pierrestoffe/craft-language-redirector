@@ -49,7 +49,7 @@ class Settings extends Model
      *
      * @var bool
      */
-    public $redirectUsersWithCpAccess = 'lang';
+    public $redirectUsersWithCpAccess = false;
 
     /**
      * Can users be automatically redirected or just use the plugin for language switching
@@ -60,7 +60,7 @@ class Settings extends Model
 
     /** The ID of the Entry that the getUrls method can default to when the current Entry is disabled in other Sites
      *
-     * @var bool
+     * @var int
      */
     public $defaultEntryId = null;
 
@@ -70,7 +70,7 @@ class Settings extends Model
     /**
      * {@inheritdoc}
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             ['languages', 'default', 'value' => []],
@@ -87,7 +87,7 @@ class Settings extends Model
 
             ['canRedirect', 'bool'],
             ['canRedirect', 'default', 'value' => true],
-            
+
             ['defaultEntryId', 'int'],
             ['defaultEntryId', 'default', 'value' => null],
         ];

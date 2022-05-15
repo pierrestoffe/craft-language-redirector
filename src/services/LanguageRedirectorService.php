@@ -41,7 +41,7 @@ class LanguageRedirectorService extends Component
     /**
      * Check if a redirection makes sense in the current context
      *
-     * @return bool
+     * @return mixed
      */
     public function canRedirectVisitor()
     {
@@ -91,7 +91,7 @@ class LanguageRedirectorService extends Component
      * Redirect to a localized URL if needed, unless the page is being visited
      * by a crawler.
      *
-     * @return bool
+     * @return mixed
      */
     public function redirectVisitor()
     {
@@ -210,17 +210,17 @@ class LanguageRedirectorService extends Component
 
         if ($withDefault) {
             $defaultEntryId = LanguageRedirector::getInstance()->getSettings()->defaultEntryId;
-            
+
             if (false === $targetElementFound && null !== $defaultEntryId) {
                 $targetElement = Craft::$app->elements->getElementById($defaultEntryId, null, $targetSite->id);
-                
+
                 $targetElementFound = true;
                 if (null === $targetElement || (false === $targetElement->enabledForSite && null === $this->_getLanguageFromQueryParameter())) {
                     $targetElementFound = false;
                 }
             }
         }
-        
+
         if (false === $targetElementFound) {
             return null;
         }
@@ -234,7 +234,7 @@ class LanguageRedirectorService extends Component
      * @param string|null $language
      * @param string|null $group
      *
-     * @return string
+     * @return mixed
      */
     public function getTargetSite(string $language = null, string $group = null)
     {
