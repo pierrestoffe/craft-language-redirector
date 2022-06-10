@@ -325,6 +325,7 @@ class LanguageRedirectorService extends Component
     public function getSitesPerLanguage(string $group = null)
     {
         $languages = LanguageRedirector::getInstance()->getSettings()->languages;
+        $languages = array_change_key_case($languages, CASE_LOWER);
 
         if (is_array(reset($languages))) {
             $languages = $this->_getSitesPerLanguageInGroup($group);
@@ -491,6 +492,7 @@ class LanguageRedirectorService extends Component
         }
 
         $languagesInGroup = $languages[$siteGroup] ?? null;
+        $languagesInGroup = array_change_key_case($languagesInGroup, CASE_LOWER);
 
         return $languagesInGroup;
     }
