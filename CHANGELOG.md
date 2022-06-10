@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [2.0.1] - 2022-06-10
+
+### Fixed
+- Fixed language matching issue that would occur when the locales in the config file are not lowercase
+
 ## [2.0.0] - 2022-05-15
 
 ### Added
