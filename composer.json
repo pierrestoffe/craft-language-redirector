@@ -2,7 +2,7 @@
     "name": "pierrestoffe/craft-language-redirector",
     "description": "Automatically redirect visitors to their preferred language",
     "type": "craft-plugin",
-    "version": "2.0.1",
+    "version": "3.0.0",
     "keywords": [
         "craft",
         "cms",
@@ -11,7 +11,7 @@
         "language redirector"
     ],
     "support": {
-        "docs": "https://github.com/pierrestoffe/craft-language-redirector/blob/master/README.md",
+        "docs": "https://github.com/pierrestoffe/craft-language-redirector/blob/v3/README.md",
         "issues": "https://github.com/pierrestoffe/craft-language-redirector/issues"
     },
     "license": "MIT",
@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0|^4.0.0",
+        "craftcms/cms": "^5.0.0",
         "jaybizzle/crawler-detect" :"^1.2"
     },
     "autoload": {
@@ -36,10 +36,25 @@
         "schemaVersion": "1.0.0",
         "hasCpSettings": false,
         "hasCpSection": false,
-        "changelogUrl": "https://raw.githubusercontent.com/pierrestoffe/craft-language-redirector/master/CHANGELOG.md",
+        "changelogUrl": "https://raw.githubusercontent.com/pierrestoffe/craft-language-redirector/v3/CHANGELOG.md",
         "components": {
             "languageRedirectorService": "pierrestoffe\\languageredirector\\services\\LanguageRedirectorService"
         },
         "class": "pierrestoffe\\languageredirector\\LanguageRedirector"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require-dev": {
+        "craftcms/phpstan": "dev-main",
+        "craftcms/rector": "dev-main"
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
+    },
+    "scripts": {
+        "phpstan": "phpstan --memory-limit=1G"
     }
 }
