@@ -1,10 +1,10 @@
-# Language Redirector plugin for Craft CMS 3.x
+# Language Redirector plugin for Craft CMS 4.x
 
 This plugin automatically redirects visitors to their preferred language
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0 or later.
+This plugin requires Craft CMS 4.0.0 or later.
 
 ## Installation
 
