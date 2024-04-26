@@ -14,7 +14,6 @@ namespace pierrestoffe\languageredirector\services;
 use Craft;
 use craft\base\Component;
 use craft\base\ElementInterface;
-use craft\elements\Entry;
 use craft\helpers\UrlHelper;
 use craft\models\Site;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
@@ -33,7 +32,7 @@ class LanguageRedirectorService extends Component
     /**
      * @var array The URL query parameters
      */
-    private $_queryParameters;
+    protected $_queryParameters;
 
     // Public Methods
     // =========================================================================
@@ -254,13 +253,13 @@ class LanguageRedirectorService extends Component
 
         // Use the language session key
         if (null === $targetSite) {
-            $language = $this->_getLanguageFromSession();
+            $language = $this->getLanguageFromSession();
             $targetSite = $this->getSiteFromLanguage($language, $group);
         }
 
         // Guess the language
         if (null === $targetSite) {
-            $language = $this->_getLanguageFromGuess();
+            $language = $this->getLanguageFromGuess();
             $targetSite = $this->getSiteFromLanguage($language, $group);
         }
 
@@ -328,7 +327,7 @@ class LanguageRedirectorService extends Component
         $languages = array_change_key_case($languages, CASE_LOWER);
 
         if (is_array(reset($languages))) {
-            $languages = $this->_getSitesPerLanguageInGroup($group);
+            $languages = $this->getSitesPerLanguageInGroup($group);
         }
 
         if (!empty($languages)) {
@@ -343,28 +342,12 @@ class LanguageRedirectorService extends Component
         return $languages;
     }
 
-    // Private Methods
-    // =========================================================================
-
-    /**
-     * Get the language that is set in the URL query parameters.
-     *
-     * @return string
-     */
-    private function _getLanguageFromQueryParameter()
-    {
-        $queryParameterName = LanguageRedirector::getInstance()->getSettings()->queryParameterName;
-        $language = $this->_getQueryParameters()[$queryParameterName] ?? null;
-
-        return $language;
-    }
-
     /**
      * Get the language that is set in the session.
      *
      * @return string
      */
-    private function _getLanguageFromSession()
+    public function getLanguageFromSession()
     {
         $sessionKeyName = LanguageRedirector::getInstance()->getSettings()->sessionKeyName;
         $id = $this->_getSiteGroupId();
@@ -379,7 +362,7 @@ class LanguageRedirectorService extends Component
      *
      * @return string|null
      */
-    private function _getLanguageFromGuess()
+    public function getLanguageFromGuess()
     {
         $sitesPerLanguage = $this->getSitesPerLanguage();
         $siteLanguages = array_keys($sitesPerLanguage);
@@ -392,7 +375,7 @@ class LanguageRedirectorService extends Component
         }
 
         // Get the most appropriate match
-        $language = $this->_getPreferredLanguage($siteLanguages);
+        $language = $this->getPreferredLanguage($siteLanguages);
 
         return $language;
     }
@@ -409,7 +392,7 @@ class LanguageRedirectorService extends Component
      *
      * @return string|null
      */
-    private function _getPreferredLanguage(array $languages = [])
+    public function getPreferredLanguage(array $languages = [])
     {
         if (empty($languages)) {
             return null;
@@ -434,13 +417,51 @@ class LanguageRedirectorService extends Component
     }
 
     /**
+     * Get the list of all languages defined in the settings, in the current group
+     *
+     * @param string|null $group
+     *
+     * @return array
+     */
+    public function getSitesPerLanguageInGroup(string $group = null)
+    {
+        $languages = LanguageRedirector::getInstance()->getSettings()->languages;
+
+        $siteGroup = $group;
+        if (empty($siteGroup)) {
+            $siteGroup = $this->_getSiteGroup();
+        }
+
+        $languagesInGroup = $languages[$siteGroup] ?? null;
+        $languagesInGroup = array_change_key_case($languagesInGroup, CASE_LOWER);
+
+        return $languagesInGroup;
+    }
+
+    // Protected Methods
+    // =========================================================================
+
+    /**
+     * Get the language that is set in the URL query parameters.
+     *
+     * @return string
+     */
+    protected function _getLanguageFromQueryParameter()
+    {
+        $queryParameterName = LanguageRedirector::getInstance()->getSettings()->queryParameterName;
+        $language = $this->_getQueryParameters()[$queryParameterName] ?? null;
+
+        return $language;
+    }
+
+    /**
      * Check whether the target language is already in use.
      *
      * @param int $id
      *
      * @return bool
      */
-    private function _checkIfSiteIsAlreadyInUse(int $id = 0): bool
+    protected function _checkIfSiteIsAlreadyInUse(int $id = 0): bool
     {
         $currentSite = Craft::$app->sites->getCurrentSite();
 
@@ -458,7 +479,7 @@ class LanguageRedirectorService extends Component
      *
      * @return @void
      */
-    private function _setQueryParameters()
+    protected function _setQueryParameters()
     {
         parse_str(html_entity_decode(Craft::$app->getRequest()->getQueryStringWithoutPath()), $queryParameters);
 
@@ -470,31 +491,9 @@ class LanguageRedirectorService extends Component
      *
      * @return array
      */
-    private function _getQueryParameters()
+    protected function _getQueryParameters()
     {
         return $this->_queryParameters;
-    }
-
-    /**
-     * Get the list of all languages defined in the settings, in the current group
-     *
-     * @param string|null $group
-     *
-     * @return array
-     */
-    public function _getSitesPerLanguageInGroup(string $group = null)
-    {
-        $languages = LanguageRedirector::getInstance()->getSettings()->languages;
-
-        $siteGroup = $group;
-        if (empty($siteGroup)) {
-            $siteGroup = $this->_getSiteGroup();
-        }
-
-        $languagesInGroup = $languages[$siteGroup] ?? null;
-        $languagesInGroup = array_change_key_case($languagesInGroup, CASE_LOWER);
-
-        return $languagesInGroup;
     }
 
     /**
@@ -502,7 +501,7 @@ class LanguageRedirectorService extends Component
      *
      * @return int|string
      */
-    public function _getSiteGroup()
+    protected function _getSiteGroup()
     {
         $currentSite = Craft::$app->sites->getCurrentSite();
         $currentSiteHandle = $currentSite->handle;
@@ -524,7 +523,7 @@ class LanguageRedirectorService extends Component
      *
      * @return string
      */
-    public function _getSiteGroupId()
+    protected function _getSiteGroupId()
     {
         $group = $this->_getSiteGroup();
         $groupId = md5($group);
