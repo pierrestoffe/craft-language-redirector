@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [3.1.0] - 2024-04-26
+
+### Added
+- Added Twig function `getGuessedLanguage` for guessing the user's preferred language
+- Added Twig function `getSavedLanguage` for getting the language preference that is saved in the user's session
+- Added Twig function `hasLanguageSuggestion` for getting a `bool` indicating if a better language match exists for the user
+- Added Twig function `getInformationForLanguage` for getting Site information from a language string
+
+## Changed
+- Renamed private `_getLanguageFromSession` method to `getLanguageFromSession` public method
+- Renamed private `_getLanguageFromGuess` method to `getLanguageFromGuess` public method
+- Renamed private `_getPreferredLanguage` method to `getPreferredLanguage` public method
+- Turned private `_checkIfSiteIsAlreadyInUse` method into `_checkIfSiteIsAlreadyInUse` protected method
+- Turned private `_setQueryParameters` method into `_setQueryParameters` protected method
+- Turned private `_getQueryParameters` method into `_getQueryParameters` protected method
+- Turned public `_getSiteGroup` method into `_getSiteGroup` protected method
+- Turned public `_getSiteGroupId` method into `_getSiteGroupId` protected method
+
+## Deprecated
+- Renamed `languageSwitcher` Twig extension to `languageRedirector`
+- Renamed `languageSwitcher.getUrls` method to `languageRedirector.getLanguageOptions`
+
 ## [3.0.0] - 2024-04-21
 
 ### Fixed
