@@ -12,8 +12,7 @@
 namespace pierrestoffe\languageredirector\variables;
 
 use Craft;
-use pierrestoffe\languageredirector\LanguageRedirector;
-use pierrestoffe\languageredirector\services\LanguageRedirectorService;
+use pierrestoffe\languageredirector\variables\LanguageRedirectorVariable;
 
 /**
  * @author    Pierre Stoffe
@@ -23,38 +22,13 @@ use pierrestoffe\languageredirector\services\LanguageRedirectorService;
 class LanguageSwitcherVariable
 {
     /**
-     * Get the URLs of all languages.
-     *
-     * @param array|null $urlOverrides
-     * @param string $group
-     *
-     * @return array
+     * @deprecated
      */
     public function getUrls($urlOverrides = null, string $group = null)
     {
-        $queryParameterName = LanguageRedirector::getInstance()->getSettings()->queryParameterName;
-        $languageRedirectorService = new LanguageRedirectorService();
-        $siteLanguages = $languageRedirectorService->getSitesPerLanguage($group);
+        Craft::$app->getDeprecator()->log('craft.languageSwitcher.getUrls', '`craft.languageSwitcher.getUrls()` has been deprecated. Use `craft.languageRedirector.getLanguageUrls()` instead.');
 
-        if (!$siteLanguages) {
-            return array();
-        }
-
-        $languages = array();
-
-        foreach ($siteLanguages as $language => $site) {
-            $targetUrl = $urlOverrides[$language] ?? $languageRedirectorService->getTargetUrl($language, $group, true);
-            $locale = Craft::$app->i18n->getLocaleById($language);
-
-            if (null !== $targetUrl) {
-                $separator = false !== strpos($targetUrl, '?') ? '&' : '?';
-                $languages[$language]['id'] = $language;
-                $languages[$language]['name'] = $locale->getDisplayName(Craft::$app->language);
-                $languages[$language]['nativeName'] = $locale->getDisplayName($language);
-                $languages[$language]['url'] = $targetUrl . $separator . $queryParameterName . '=' . $language;
-            }
-        }
-
-        return $languages;
+        $languageRedirectorVariable = new LanguageRedirectorVariable();
+        return $languageRedirectorVariable->getUrls($urlOverrides, $group);
     }
 }

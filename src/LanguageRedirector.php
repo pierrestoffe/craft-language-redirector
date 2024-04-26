@@ -18,6 +18,7 @@ use craft\web\twig\variables\CraftVariable;
 use pierrestoffe\languageredirector\models\Settings;
 use pierrestoffe\languageredirector\services\LanguageRedirectorService;
 use pierrestoffe\languageredirector\variables\LanguageSwitcherVariable;
+use pierrestoffe\languageredirector\variables\LanguageRedirectorVariable;
 use yii\base\Event;
 
 /**
@@ -64,7 +65,8 @@ class LanguageRedirector extends Plugin
             function (Event $event) {
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
-                $variable->set('languageSwitcher', LanguageSwitcherVariable::class);
+                $variable->set('languageSwitcher', LanguageSwitcherVariable::class); // @deprecated
+                $variable->set('languageRedirector', LanguageRedirectorVariable::class);
             }
         );
     }
