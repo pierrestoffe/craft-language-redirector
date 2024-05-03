@@ -132,7 +132,7 @@ class LanguageRedirectorVariable
     protected function _getSitesPerLanguage($group)
     {
         $languageRedirectorService = new LanguageRedirectorService();
-        $sitesPerLanguage = $languageRedirectorService->getSitesPerLanguageInGroup($group);
+        $sitesPerLanguage = $languageRedirectorService->getSitesPerLanguage($group);
 
         return $sitesPerLanguage;
     }
