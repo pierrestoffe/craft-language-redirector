@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [3.1.1] - 2024-05-03
+
+### Fixed
+- Fixed issue with `_getSitesPerLanguage` Twig method when no language groups are defined
+
 ## [3.1.0] - 2024-04-26
 
 ### Added
