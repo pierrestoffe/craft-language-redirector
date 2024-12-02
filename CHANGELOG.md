@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [2.0.2] - 2024-12-02
+
+### Fixed
+- Fixed issue with query parameter redirects not working when the `redirectUsersWithCpAccess` config parameter is set to `false`
+
 ## [2.0.1] - 2022-06-10
 
 ### Fixed
