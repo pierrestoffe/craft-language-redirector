@@ -487,6 +487,10 @@ class LanguageRedirectorService extends Component
      */
     protected function _setQueryParameters()
     {
+        if (! Craft::$app->getRequest()->getIsWebRequest()) {
+            return;
+        }
+
         parse_str(html_entity_decode(Craft::$app->getRequest()->getQueryStringWithoutPath()), $queryParameters);
 
         $this->_queryParameters = $queryParameters;
