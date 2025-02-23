@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [1.5.5] - 2025-02-23
+
+### Fixed
+- Fixed issue that would occur when the plugin runs on non-web requests (thanks to @francoislevesque)
+
 ## [1.5.4] - 2024-12-02
 
 ### Fixed

@@ -216,17 +216,17 @@ class LanguageRedirectorService extends Component
 
         if ($withDefault) {
             $defaultEntryId = LanguageRedirector::getInstance()->getSettings()->defaultEntryId;
-            
+
             if (false === $targetElementFound && null !== $defaultEntryId) {
                 $targetElement = Craft::$app->elements->getElementById($defaultEntryId, null, $targetSite->id);
-                
+
                 $targetElementFound = true;
                 if (null === $targetElement || (false === $targetElement->enabledForSite && null === $this->_getLanguageFromQueryParameter())) {
                     $targetElementFound = false;
                 }
             }
         }
-        
+
         if (false === $targetElementFound) {
             return null;
         }
@@ -465,6 +465,10 @@ class LanguageRedirectorService extends Component
      */
     private function _setQueryParameters()
     {
+        if (! Craft::$app->getRequest()->getIsSiteRequest()) {
+            return;
+        }
+
         parse_str(html_entity_decode(Craft::$app->getRequest()->getQueryStringWithoutPath()), $queryParameters);
 
         $this->_queryParameters = $queryParameters;
